@@ -1,29 +1,30 @@
-import React, {FC, useEffect, useState} from 'react';
-import './App.css';
-import TimeLine from './Components/Chart/TimeLine';
-import { getDailyData } from './Services/service';
-import { companydata, coordinateFormattedData, formatToCoordinate} from './Utils/dataFormatter';
-
-
+import React, { FC } from 'react'
+import './App.css'
+import 'semantic-ui-css/semantic.min.css'
+import Graph from './Components/Graph'
+import { Container, Segment, SegmentGroup } from 'semantic-ui-react'
+import CompanySearch from './Components/CompanySearch'
+import Portfolio from './Components/Portfolio'
+import { StoreProvider } from './Store/StoreProvider'
+import Error from './Components/Error/Error'
 
 const App:FC = () =>  {
-  const [data,setData] = useState<companydata[]>([])
-  useEffect(( () => {
-    const callGetDailyData =  async () => {
-      const responseData =  await getDailyData('TSLA','60min',1)
-      if(responseData) {
-        const companyData = formatToCoordinate( responseData['Time Series (60min)'] ,'TSLA')
-        setData([...data,companyData])
-      }
-    }
-    callGetDailyData()
-  }),[])
-
-  console.log(data)
-
   return (
-    <TimeLine data= {data}></TimeLine>
+    <Container style= {{ minWidth:'95%' }}>
+      <StoreProvider>
+        <Error/>
+        <SegmentGroup horizontal  >
+          <Segment>
+            <Portfolio/>
+            <CompanySearch/>
+          </Segment>
+          <Graph/>
+        </SegmentGroup>
+      </StoreProvider>
+    </Container>
+
+
   )
 }
 
-export default App;
+export default App
