@@ -62,15 +62,15 @@ export const getStartingPointForInterval = (interval:intervalLabel, max?:number)
   case '10 days':
     return new Date(today.getFullYear(),today.getMonth(),today.getDate()-10)
   case '1 month':
-    return new Date(today.getFullYear(),today.getMonth()-1,1)
+    return new Date(today.getFullYear(),today.getMonth()-1,today.getDate())
   case '6 month':
-    return new Date(today.getFullYear(),today.getMonth()-6,1)
+    return new Date(today.getFullYear(),today.getMonth()-6,today.getDate())
   case '1 year':
-    return new Date(today.getFullYear()-1,today.getMonth(),1)
+    return new Date(today.getFullYear()-1,today.getMonth(),today.getDate())
   case 'ytd':
     return new Date(today.getFullYear(),0,1)
   case '5 years':
-    return new Date(today.getFullYear()-5,today.getMonth(),1)
+    return new Date(today.getFullYear()-5,today.getMonth(),today.getDate())
   case 'max':
     if(max) return new Date(max)
     return new Date(today.getFullYear()-20,today.getMonth(),1)

@@ -7,8 +7,23 @@ import CompanySearch from './Components/CompanySearch'
 import Portfolio from './Components/Portfolio'
 import { StoreProvider } from './Store/StoreProvider'
 import Error from './Components/Error/Error'
+import { useParams } from 'react-router-dom'
+import { resetBaseApiBaseUrl, setBaseApiBaseUrlToHost } from './Services/apiBaseUrl'
+
 
 const App:FC = () =>  {
+  type URLparams = {
+    demo?:string
+  }
+  const params:URLparams = useParams()
+
+  if(params.demo === 'demo'){
+    setBaseApiBaseUrlToHost()
+  }else{
+    resetBaseApiBaseUrl()
+  }
+
+
   return (
     <Container style= {{ minWidth:'95%' }}>
       <StoreProvider>

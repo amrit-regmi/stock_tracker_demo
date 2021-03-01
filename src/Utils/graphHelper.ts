@@ -1,4 +1,4 @@
-import { intervalLabel } from '../types'
+import { coordinateFormattedData, intervalLabel } from '../types'
 import { formatDate, getStartingPointForInterval } from './dateUtils'
 
 /**
@@ -55,3 +55,16 @@ export const formatXAxisValues =(graphInterval: intervalLabel, date: number | Da
   return formattedDate
 }
 
+/**
+ * Clips the coordinate formatted data based on selected interval on graph so domain on y-axis is calculated properly
+ * @param graphInterval string selected interval in graph
+ * @param data {Object} coordinateformatted data
+ * @returns array of cordinate formatted data x-dateInt y- price double
+ */
+export const clipDataBasedonInterval = (graphInterval: intervalLabel, data: coordinateFormattedData): coordinateFormattedData => {
+  if(graphInterval === 'max') {
+    return data
+  }
+  const startFromDate = getStartingPointForInterval(graphInterval).getTime()
+  return data.filter(cordinateObject => cordinateObject.x >= startFromDate )
+}
